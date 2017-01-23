@@ -1,15 +1,62 @@
 Intro
 =====
 
-WHY?!
------
+Informal to Formal Testing
+--------------------------
+
+We all test our code *informally* to find out if we have implemented the correct functionality. The easiest way to do this is with `console.log()`
+
+```js
+
+let arr = [1, 2, 3];
+arr.push(4)
+console.log(arr); // expect [1, 2, 3, 4]
+```
+
+`Example: 1-logging.js`
+
+This works for ensuring some basic functionality, but it mixes the code and the tests together, and isn't a great solution for long term testing. For that, we might have a seperate test file and use Node's built in `assert` library.
+
+Assert
+------
+
+```js
+assert(true);  // returns undefined 
+assert(false); // throws AssertionError
+```
+
+This is the core of `assert` - it is simply a function that returns undefined (does nothing, continues running) if what you are asserting is truthy, otherwise throws an error (if not caught, ends program early)
+
+Assert actually has a little more built-in functionality to make working with different types of data easier, but everything ultimately boils down to `assert(true/false)`
+
+```js
+assert.equal(1, 1);
+assert.equal(1, '1'); // by default not strict (x == y)
+assert.strictEqual(1, '1'); // fails because 1 !== '1'
+assert.equal([1, 2, 3], [1, 2, 3]); // FAILS! Why?
+// non-primitives need a 'deep' compare. We don't care that they are the same array (they aren't!) 
+// but rather that all primitives contained in the arrays are identical (they are)
+assert.deepEqual([1, 2, 3], [1, 2, 3]);
+```
+
+`Example: 2-example.js, 2-example.spec.js`
+
+Core Topics
+-----------
+* Mocha - a test runner
+* Chai - an assertion library
+* Unit Tests - a written test confirming a specific 'unit' of functionality
+* Service Tests - a written test confirming integration across multiple pieces of software (the DB + routers, for example)
+* TDD + BDD - testing 'philosophies'
+
+By why do 'formal' testing with tools like Mocha and Chai?
 
 Q: Why do we even write tests?
 
-A: This is actually a tricky one because testing is something that varies in importance from project to project, company to company. Testing is important for a few reasons ultimately:
+A: This is actually a tricky one because testing is something that varies in importance from project to project, company to company. Testing can be useful for a few reasons:
 
 1. it is a living record of what currently works 
-    - software projects can go through many developers over many years, and tests are a valuable form of documentation
+    - software projects can go through many developers over many years, and tests are a valuable form of documentation and reassurance about 'what works'
 
 2. Isolate the problem
     - problems can sometimes arise from many places and it's difficult to isolate the bug. Testing is a way of feeling reasonably confident a certain part of the code is not the problem
