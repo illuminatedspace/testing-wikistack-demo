@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 // require our code we want to test
-const example = require('./2-example');
+const example = require('./example');
 const addToFront = example.addToFront;
 const addToEnd = example.addToEnd;
 
